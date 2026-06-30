@@ -263,7 +263,11 @@ footer p{font-family:var(--mono);font-size:12px;color:var(--fog3);letter-spacing
 <canvas id="stars"></canvas>
 
 <nav id="nav">
-  <a href="https://worldposta.com/" target="_blank" rel="noopener" class="logo"><img src="./assets/worldposta-light.png" alt="WorldPosta"></a>
+  <div class="logo">
+    <a href="https://worldposta.com/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;flex-shrink:0"><img src="./assets/worldposta-logo.png" alt="WorldPosta" style="height:28px;max-width:130px;object-fit:contain"></a>
+    <span style="color:rgba(120,160,210,.35);font-size:18px;font-weight:300;flex-shrink:0;line-height:1">|</span>
+    <a href="https://roaya.co/" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;flex-shrink:0"><img src="./assets/logos/roaya-logo.png" alt="Roaya" style="height:22px;max-width:110px;object-fit:contain;filter:brightness(0) invert(1)"></a>
+  </div>
   <div class="links">
     <a href="#why">Why Private Cloud</a>
     <a href="#security">Security</a>
@@ -300,7 +304,7 @@ footer p{font-family:var(--mono);font-size:12px;color:var(--fog3);letter-spacing
       <div class="div"></div>
       <div class="s"><b><span class="count" data-to="24">0</span><u>TB</u></b><span>RAM/VM</span></div>
       <div class="div"></div>
-      <div class="s"><b><span class="count" data-to="128">0</span></b><span>vCores/VM</span></div>
+      <div class="s"><b><span class="count" data-to="256">0</span></b><span>vCores/VM</span></div>
     </div>
   </div>
 </header>
@@ -459,7 +463,7 @@ footer p{font-family:var(--mono);font-size:12px;color:var(--fog3);letter-spacing
       <div>
         <div class="eyebrow"><span class="dot"></span>Performance & Scalability</div>
         <h2>Power that scales with you.</h2>
-        <p>NVMe and SSD storage, up to 24TB RAM and 128 vCores/VM, GPU acceleration, and VMware optimization, with resources guaranteed when you need them.</p>
+        <p>NVMe and SSD storage, up to 24TB RAM and  vCores/VM, GPU acceleration, and VMware optimization, with resources guaranteed when you need them.</p>
         <ul class="blist">
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Scalable compute from 4 to 300 vCPUs with GPU options</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>VMware resource guarantees and multiple NICs/VM</li>
@@ -468,7 +472,7 @@ footer p{font-family:var(--mono);font-size:12px;color:var(--fog3);letter-spacing
       </div>
       <div class="grid g2" style="gap:16px">
         <div class="statcard"><b><span class="count" data-to="24">0</span><u>TB</u></b><span>RAM/VM</span></div>
-        <div class="statcard"><b><span class="count" data-to="128">0</span><u>vCores</u></b><span>Per VM</span></div>
+        <div class="statcard"><b><span class="count" data-to="">0</span><u>vCores</u></b><span>Per VM</span></div>
         <div class="statcard"><b><span class="count" data-to="300">0</span><u>vCPU</u></b><span>Max scale-out</span></div>
         <div class="statcard"><b>GPU<u></u></b><span>Acceleration ready</span></div>
       </div>
@@ -754,8 +758,12 @@ footer p{font-family:var(--mono);font-size:12px;color:var(--fog3);letter-spacing
 </section>
 
 <footer>
-  <a href="https://worldposta.com/" target="_blank" rel="noopener"><img class="flogo-img" src="./assets/worldposta-light.png" alt="WorldPosta"></a>
-  <p>&copy; WorldPosta · Posta · CloudEdge · CloudSpace</p>
+  <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin:0 auto 14px;position:relative;z-index:1">
+    <a href="https://worldposta.com/" target="_blank" rel="noopener noreferrer"><img src="./assets/worldposta-logo.png" alt="WorldPosta" style="height:38px;object-fit:contain;display:block"></a>
+    <span style="color:var(--fog3);font-size:18px;font-weight:300;line-height:1">|</span>
+    <a href="https://roaya.co/" target="_blank" rel="noopener noreferrer"><img src="./assets/logos/roaya-logo.png" alt="Roaya" style="height:30px;object-fit:contain;display:block;filter:brightness(0) invert(1);opacity:.75"></a>
+  </div>
+  <p>CloudEdge · Posta · CloudSpace</p>
 </footer>
 
 <script>
@@ -855,47 +863,255 @@ if(!reduce)document.querySelectorAll('.btn-primary, nav .cta').forEach(btn=>{
   btn.addEventListener('mouseleave',()=>{btn.style.transform='';});
 });
 
-/* NETWORK CONSTELLATION (hero) */
+/* GLOBAL NETWORK (hero) */
 const cv=document.getElementById('net');
 if(cv&&!reduce){
-  const ctx=cv.getContext('2d');const DPR=Math.min(devicePixelRatio||1,2);
-  let W,H,nodes=[];const mouse={x:-9999,y:-9999};
-  function size(){
-    W=cv.width=cv.offsetWidth*DPR;H=cv.height=cv.offsetHeight*DPR;
-    const N=Math.min(64,Math.floor(cv.offsetWidth/26));
-    nodes=Array.from({length:N},()=>({
-      x:Math.random()*W,y:Math.random()*H,
-      vx:(Math.random()-.5)*.22*DPR,vy:(Math.random()-.5)*.22*DPR,
-      r:(Math.random()*1.6+1)*DPR}));
+  const ctx=cv.getContext('2d');
+  const DPR=Math.min(devicePixelRatio||1,2);
+  let W,H,nodes=[],edges=[],packets=[];
+  const mouse={x:-9999,y:-9999};
+  const ACC='63,184,96',LIME='159,230,180';
+
+  // ── Canvas-% positions [xPct, yPct, isHub] — 12 nodes ────────
+  const DC_LOCS=[
+    [0.18, 0.24, true ],  //  0  NW hub
+    [0.12, 0.50, false],  //  1  left-mid
+    [0.20, 0.72, false],  //  2  left-lower
+    [0.34, 0.13, false],  //  3  top-left
+    [0.66, 0.14, false],  //  4  top-right
+    [0.82, 0.24, true ],  //  5  NE hub
+    [0.88, 0.50, false],  //  6  right-mid
+    [0.80, 0.70, true ],  //  7  SE hub
+    [0.38, 0.30, false],  //  8  upper-left interior
+    [0.62, 0.31, false],  //  9  upper-right interior
+    [0.30, 0.70, false],  // 10  lower-left interior
+    [0.70, 0.68, false],  // 11  lower-right interior
+  ];
+
+  // ── Routes ────────────────────────────────────────────────────
+  const ROUTES=[
+    [0,5],               // NW↔NE top sweep
+    [2,6],               // left↔right mid crossing
+    [3,4],               // top-left↔top-right
+    [0,1],[1,2],[0,3],[0,8],
+    [5,6],[6,7],[5,4],[5,9],
+    [8,9],[8,10],[9,11],[10,11],
+    [7,11],
+    [2,10],[6,11],[3,8],[4,9],
+  ];
+
+  // ── Rounded rect ─────────────────────────────────────────────
+  function rr(x,y,w,h,r){
+    ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);
+    ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);
+    ctx.closePath();
   }
-  size();window.addEventListener('resize',size);
+
+  // ── Quadratic bezier point at t ───────────────────────────────
+  function qbez(ax,ay,cpx,cpy,bx,by,t){
+    const m=1-t;
+    return{x:m*m*ax+2*m*t*cpx+t*t*bx, y:m*m*ay+2*m*t*cpy+t*t*by};
+  }
+
+  // ── Arc control point: converge toward canvas center ──────────
+  // Arcs bow inward, wrapping around the hero content.
+  function arcCP(ax,ay,bx,by){
+    const mx=(ax+bx)/2, my=(ay+by)/2;
+    const d=Math.hypot(bx-ax,by-ay);
+    const lift=Math.max(45*DPR, d*0.36);
+    // Vector from midpoint toward canvas center (slightly above mid)
+    const cx=W*0.50, cy=H*0.44;
+    const dx=cx-mx, dy=cy-my;
+    const dl=Math.hypot(dx,dy)||1;
+    return{cpx:mx+(dx/dl)*lift, cpy:my+(dy/dl)*lift};
+  }
+
+  // ── Build nodes from canvas-% positions ──────────────────────
+  function buildNodes(){
+    nodes=DC_LOCS.map(([xp,yp,hub])=>{
+      const x=xp*W, y=yp*H;
+      const amp=(10+Math.random()*14)*DPR;
+      return{
+        x,y, ax:x,ay:y, xp,yp,
+        dox:Math.random()*Math.PI*2, doy:Math.random()*Math.PI*2,
+        dsx:0.10+Math.random()*0.08, dsy:0.08+Math.random()*0.06,
+        dax:amp, day:amp*0.75,
+        led:Math.random()*Math.PI*2,
+        hub, z:hub?1:0.55+Math.random()*0.45,
+        size:hub?(42+Math.random()*10)*DPR:(22+Math.random()*12)*DPR
+      };
+    });
+  }
+
+  // ── Build edges — first 5 ROUTES are "hero" bold arcs ────────
+  function buildEdges(){
+    edges=[];
+    ROUTES.forEach(([a,b],i)=>edges.push({a,b,hero:i<5,phase:Math.random()*Math.PI*2}));
+    packets=[];
+    const seed=Math.min(4,edges.length);
+    for(let k=0;k<seed;k++) spawnPacket();
+  }
+
+  function spawnPacket(){
+    if(!edges.length)return;
+    const e=edges[Math.floor(Math.random()*edges.length)];
+    const fwd=Math.random()<0.5;
+    packets.push({
+      ea:fwd?e.a:e.b, eb:fwd?e.b:e.a,
+      t:0, speed:0.0006+Math.random()*0.0009,
+      al:0.35+Math.random()*0.20,
+      sz:(2.2+Math.random()*1.6)*DPR,
+      col:Math.random()<0.65?ACC:LIME
+    });
+  }
+
+  // ── Resize ───────────────────────────────────────────────────
+  function size(){
+    W=cv.width=cv.offsetWidth*DPR;
+    H=cv.height=cv.offsetHeight*DPR;
+    buildNodes();
+    buildEdges();
+  }
+  size(); window.addEventListener('resize',size);
+
   cv.parentElement.addEventListener('mousemove',e=>{
-    const r=cv.getBoundingClientRect();mouse.x=(e.clientX-r.left)*DPR;mouse.y=(e.clientY-r.top)*DPR;});
+    const r=cv.getBoundingClientRect();
+    mouse.x=(e.clientX-r.left)*DPR; mouse.y=(e.clientY-r.top)*DPR;
+  });
   cv.parentElement.addEventListener('mouseleave',()=>{mouse.x=mouse.y=-9999;});
-  const LINK=(130*DPR);const MLINK=(170*DPR);
+
+  // ── Rounded rect helper ───────────────────────────────────────
+  function rr(x,y,w,h,r){
+    ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);
+    ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);
+    ctx.closePath();
+  }
+
+  // ── Draw server widget with bloom + rings ─────────────────────
+  function drawNode(n,cx,cy){
+    const w=n.size, h=w*0.38;
+    const hot=Math.hypot(cx-mouse.x,cy-mouse.y)<130*DPR;
+    const al=0.28+n.z*0.30;  // dimmer base
+    const pulse=0.5+0.5*Math.abs(Math.sin(n.led*0.38));
+    ctx.save(); ctx.translate(cx,cy);
+
+    // ── Bloom behind hubs / hover ──
+    if(n.hub||hot){
+      const bR=w*(n.hub?2.8:2.0);
+      const bl=ctx.createRadialGradient(0,0,0,0,0,bR);
+      bl.addColorStop(0,'rgba(63,184,96,'+(0.06*(hot?1.8:1)*al)+')');
+      bl.addColorStop(0.5,'rgba(63,184,96,'+(0.02*al)+')');
+      bl.addColorStop(1,'rgba(63,184,96,0)');
+      ctx.beginPath();ctx.arc(0,0,bR,0,Math.PI*2);
+      ctx.fillStyle=bl; ctx.fill();
+    }
+
+    // ── Outer pulsing orbit ring ──
+    const ringR=w*(n.hub?1.20:0.95);
+    ctx.beginPath();ctx.arc(0,0,ringR,0,Math.PI*2);
+    ctx.strokeStyle='rgba(63,184,96,'+(0.10*pulse*al)+')';
+    ctx.lineWidth=(n.hub?1.5:1.0)*DPR; ctx.stroke();
+
+    // ── Second inner ring for hubs ──
+    if(n.hub){
+      ctx.beginPath();ctx.arc(0,0,ringR*0.72,0,Math.PI*2);
+      ctx.strokeStyle='rgba(63,184,96,'+(0.06*al)+')';
+      ctx.lineWidth=0.9*DPR; ctx.stroke();
+    }
+
+    // ── Server chassis ──
+    ctx.shadowColor='rgba(63,184,96,'+(hot?0.45:0.22)*al+')';
+    ctx.shadowBlur=(hot?16:7)*n.z*DPR;
+    rr(-w/2,-h/2,w,h,Math.min(h/2,5*n.z));
+    const g=ctx.createLinearGradient(0,-h/2,0,h/2);
+    g.addColorStop(0,'rgba(22,55,34,'+(0.97*al)+')');
+    g.addColorStop(1,'rgba(8,22,14,'+(0.97*al)+')');
+    ctx.fillStyle=g; ctx.fill(); ctx.shadowBlur=0;
+
+    // ── Chassis border ──
+    ctx.lineWidth=1.2*n.z;
+    ctx.strokeStyle='rgba(63,184,96,'+((hot?0.55:0.35)*al)+')'; ctx.stroke();
+
+    // ── Rack unit lines ──
+    ctx.strokeStyle='rgba(159,230,180,'+(0.14*al)+')';
+    ctx.lineWidth=0.9*n.z;
+    for(let i=-1;i<=1;i++){
+      const yy=i*h*0.25;
+      ctx.beginPath();ctx.moveTo(-w*0.14,yy);ctx.lineTo(w*0.14,yy);ctx.stroke();
+    }
+
+    // ── Side vents ──
+    ctx.strokeStyle='rgba(159,230,180,'+(0.22*al)+')';
+    for(const hx of[-0.38,-0.32]){
+      ctx.beginPath();ctx.moveTo(w*hx,-h*0.24);ctx.lineTo(w*hx,h*0.24);ctx.stroke();
+    }
+
+    // ── Status LEDs ──
+    const leds=n.hub?4:3;
+    for(let i=0;i<leds;i++){
+      const blink=0.25+0.45*Math.abs(Math.sin(n.led+i*1.2));
+      const ledX=w*0.26+i*w*0.09;
+      ctx.beginPath();ctx.arc(ledX,0,2.0*n.z,0,Math.PI*2);
+      ctx.fillStyle='rgba(159,230,180,'+(blink*al)+')';
+      ctx.shadowColor='rgba(159,230,180,'+(blink*al)+')';
+      ctx.shadowBlur=4*n.z; ctx.fill(); ctx.shadowBlur=0;
+    }
+
+    ctx.restore();
+  }
+
+  // ── Main loop ────────────────────────────────────────────────
+  let t=0;
   function draw(){
-    ctx.clearRect(0,0,W,H);
+    t+=0.016; ctx.clearRect(0,0,W,H);
+
+    // ── Drift ────────────────────────────────────────────────────
     for(const n of nodes){
-      n.x+=n.vx;n.y+=n.vy;
-      if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;
+      n.led+=0.030;
+      n.x=n.ax+Math.sin(t*n.dsx+n.dox)*n.dax;
+      n.y=n.ay+Math.cos(t*n.dsy+n.doy)*n.day;
     }
-    for(let i=0;i<nodes.length;i++){
-      for(let j=i+1;j<nodes.length;j++){
-        const a=nodes[i],b=nodes[j];const dx=a.x-b.x,dy=a.y-b.y;const d=Math.hypot(dx,dy);
-        if(d<LINK){const op=(1-d/LINK)*.34;
-          ctx.strokeStyle='rgba(63,184,96,'+op+')';ctx.lineWidth=1*DPR;
-          ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}
-      }
-      const a=nodes[i];const mdx=a.x-mouse.x,mdy=a.y-mouse.y;const md=Math.hypot(mdx,mdy);
-      if(md<MLINK){const op=(1-md/MLINK)*.6;
-        ctx.strokeStyle='rgba(159,230,180,'+op+')';ctx.lineWidth=1*DPR;
-        ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(mouse.x,mouse.y);ctx.stroke();}
+
+    // ── Arcs — uniform faint tier, brightens on hover ────────────
+    const ambBreath=0.04+0.02*Math.sin(t*0.28);
+    ctx.lineCap='round';
+    for(const e of edges){
+      const na=nodes[e.a],nb=nodes[e.b];
+      const near=Math.hypot(na.x-mouse.x,na.y-mouse.y)<160*DPR||
+                 Math.hypot(nb.x-mouse.x,nb.y-mouse.y)<160*DPR;
+      const al=near?0.22:ambBreath+0.01*Math.sin(t*0.4+e.phase);
+      const{cpx,cpy}=arcCP(na.x,na.y,nb.x,nb.y);
+      ctx.strokeStyle='rgba(63,184,96,'+al+')';
+      ctx.lineWidth=(near?0.9:0.5)*DPR;
+      if(near){ctx.shadowColor='rgba(63,184,96,0.25)';ctx.shadowBlur=8*DPR;}
+      else{ctx.shadowBlur=0;}
+      ctx.beginPath();ctx.moveTo(na.x,na.y);
+      ctx.quadraticCurveTo(cpx,cpy,nb.x,nb.y);
+      ctx.stroke(); ctx.shadowBlur=0;
     }
-    for(const n of nodes){
-      const near=Math.hypot(n.x-mouse.x,n.y-mouse.y)<MLINK;
-      ctx.beginPath();ctx.arc(n.x,n.y,n.r*(near?1.5:1),0,7);
-      ctx.fillStyle=near?'rgba(159,230,180,.95)':'rgba(63,184,96,.7)';ctx.fill();
+
+    // ── Packets ───────────────────────────────────────────────────
+    for(let i=packets.length-1;i>=0;i--){
+      const p=packets[i];
+      p.t+=p.speed;
+      if(p.t>=1){packets.splice(i,1);continue;}
+      const na=nodes[p.ea],nb=nodes[p.eb];
+      const{cpx,cpy}=arcCP(na.x,na.y,nb.x,nb.y);
+      const{x,y}=qbez(na.x,na.y,cpx,cpy,nb.x,nb.y,p.t);
+      // Tail glow
+      ctx.beginPath();ctx.arc(x,y,p.sz*2.2,0,Math.PI*2);
+      ctx.fillStyle='rgba('+p.col+','+(p.al*0.18)+')'; ctx.fill();
+      // Core dot
+      ctx.beginPath();ctx.arc(x,y,p.sz,0,Math.PI*2);
+      ctx.fillStyle='rgba('+p.col+','+p.al+')';
+      ctx.shadowColor='rgba('+p.col+','+p.al+')';
+      ctx.shadowBlur=16*DPR; ctx.fill(); ctx.shadowBlur=0;
     }
+    if(Math.random()<0.018&&packets.length<10) spawnPacket();
+
+    // ── Nodes (back→front by z) ───────────────────────────────────
+    [...nodes].sort((a,b)=>a.z-b.z).forEach(n=>drawNode(n,n.x,n.y));
+
     requestAnimationFrame(draw);
   }
   draw();
@@ -914,4 +1130,3 @@ if(!reduce)document.querySelectorAll('.card').forEach(card=>{
 </script>
 </body>
 </html>
-
