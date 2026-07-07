@@ -122,7 +122,7 @@ h1,h2,h3{font-family:var(--display);color:var(--white);font-weight:600;line-heig
 
 /* STATS */
 .hero-stats{display:flex;align-items:center;gap:28px;flex-wrap:wrap;margin-top:46px;justify-content:center}
-.hero-stats .s{text-align:center}
+.hero-stats .s{text-align:center;align-self: end;}
 .hero-stats .s b{font-family:var(--display);font-size:clamp(38px,4.1vw,54px);font-weight:700;line-height:.92;color:#EFF6E6;letter-spacing:-.02em}
 .hero-stats .s b u{font-size:.4em;text-decoration:none;color:var(--cyan)}
 .hero-stats .s>span{display:block;margin-top:8px;font-family:var(--mono);font-size:11px;letter-spacing:.6px;color:var(--fog2);text-transform:uppercase}
@@ -132,7 +132,7 @@ h1,h2,h3{font-family:var(--display);color:var(--white);font-weight:600;line-heig
 .statcard b{font-family:var(--display);font-size:30px;color:var(--white);font-weight:600;display:block}
 .statcard b u{font-size:16px;text-decoration:none;color:var(--cyan)}
 .statcard>span{font-size:12.5px;color:var(--fog2);margin-top:4px;display:block}
-.statbox{background:rgba(63,184,96,.05);border:1px solid var(--line2);border-radius:16px;padding:24px}
+.statbox{background:rgba(63,184,96,.05);border:1px solid var(--line2);border-radius:16px;padding:24px;align-content: flex-end;}
 .statbox .n{font-family:var(--display);font-size:54px;font-weight:700;line-height:1;color:var(--white)}
 .statbox .k{font-family:var(--mono);font-size:11px;letter-spacing:.6px;color:var(--cyan);text-transform:uppercase;margin:8px 0}
 .statbox .d{font-size:13.5px;color:var(--fog2)}
@@ -318,8 +318,8 @@ footer p{font-family:var(--mono);font-size:12px;color:var(--fog3);letter-spacing
       <div class="wm">Cloud<span class="grad">Edge</span></div>
     </div>
     <div class="eyebrow"><span class="dot"></span>Private Cloud · Security · Scale</div>
-    <h1>Enterprise cloud,<br><span class="grad">engineered</span> for what's next.</h1>
-    <p class="lede">CloudEdge by WorldPosta delivers secure, scalable, enterprise-grade private cloud infrastructure, built on top-tier hardware and global data centers, with the performance and control your business runs on.</p>
+    <h1>Enterprise cloud,<br><span class="grad">designed</span> for your bussiness.</h1>
+    <p class="lede">CloudEdge by WorldPosta delivers secure, scalable, enterprise-grade private cloud infrastructure, built on top-tier hardware and global data centers.</p>
     <div class="hero-cta">
       <a href="#why" class="btn btn-primary">Explore the platform
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg></a>
@@ -343,34 +343,34 @@ footer p{font-family:var(--mono);font-size:12px;color:var(--fog3);letter-spacing
   <div class="wrap">
     <div class="section-head reveal">
       <div class="eyebrow"><span class="dot"></span>Introduction to CloudEdge</div>
-      <h2 class="h-sec">A private cloud built for <span class="grad">enterprise</span>.</h2>
-      <p class="lede" style="margin:0 auto">High-performance servers, all-flash storage, and advanced networking, engineered to give you a real competitive advantage in security, scalability, and cost.</p>
+      <h2 class="h-sec">A private cloud built for <span class="grad">enterprise</span> use.</h2>
+      <p class="lede" style="margin:0 auto">High-performance servers, all-flash storage, and advanced networking, designed to give you a real competitive advantage in security, scalability, and cost.</p>
     </div>
     <div class="grid g3 stagger">
       <div class="card">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
         <h3>Enterprise-Grade Hardware</h3>
-        <p>Built with enterprise needs in mind, leveraging top-tier servers and global data centers for consistent, dependable performance.</p>
+        <p>Built with enterprise needs in mind, using top-tier servers and global data centers for consistent, dependable performance.</p>
       </div>
       <div class="card">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg></div>
         <h3>All-Flash Storage</h3>
-        <p>NVMe and all-flash storage across the platform delivers low-latency throughput for the most demanding workloads.</p>
+        <p>NVMe and all-flash storage across the platform delivers low-latency performance for the most demanding workloads.</p>
       </div>
       <div class="card">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></div>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="16" y="16" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/></svg></div>
         <h3>Advanced Networking</h3>
         <p>Software-defined, high-bandwidth networking with the routing and security controls enterprises expect.</p>
       </div>
       <div class="card">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg></div>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg></div>
         <h3>Cost-Effective Scale</h3>
         <p>Grow capacity on demand and pay for what you use, with no oversized upfront hardware investment.</p>
       </div>
       <div class="card">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></div>
         <h3>Built-In Resilience</h3>
-        <p>Redundancy and advanced disaster recovery are designed in from the ground up, not bolted on later.</p>
+        <p>Failover and disaster recovery are part of the core design, so uptime doesn't depend on add-ons.</p>
       </div>
       <div class="card hl">
         <div class="tag">Why CloudEdge</div>
@@ -473,10 +473,10 @@ footer p{font-family:var(--mono);font-size:12px;color:var(--fog3);letter-spacing
       <div class="grid stagger" style="grid-column:span 2;gap:18px">
         <div class="grid g2" style="gap:18px">
           <div class="statbox"><div class="n">+<span class="count" data-to="35">0</span></div><div class="k">Availability Zones</div><div class="d">Globally distributed, each with built-in redundancy.</div></div>
-          <div class="statbox"><div class="n">Multi</div><div class="k">Zone Failover</div><div class="d">Rapid data replication keeps workloads running through disruption.</div></div>
+          <div class="statbox"><div class="k">Multi</div><div class="n">Zone Failover</div><div class="d">Rapid data replication keeps workloads running through disruption.</div></div>
         </div>
         <div class="card">
-          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg></div>
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/></svg></div>
           <h3>Disaster Recovery Excellence</h3>
           <p>Multi-zone failover and rapid replication mean your data and applications recover fast, backed by enterprise-grade monitoring tools.</p>
         </div>
@@ -496,7 +496,7 @@ footer p{font-family:var(--mono);font-size:12px;color:var(--fog3);letter-spacing
         <ul class="blist">
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Scalable compute from a 2 vCPU minimum up to 256 vCPUs with GPU options</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>VMware resource guarantees and multiple NICs/VM</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>NVMe / SSD all-flash storage for low-latency throughput</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>NVMe / SSD all-flash storage for low-latency performance</li>
         </ul>
       </div>
       <div class="grid g2" style="gap:16px">
@@ -515,7 +515,7 @@ footer p{font-family:var(--mono);font-size:12px;color:var(--fog3);letter-spacing
     <div class="section-head reveal">
       <div class="eyebrow"><span class="dot"></span>Network & Advanced Capabilities</div>
       <h2 class="h-sec">Enterprise networking, <span class="grad">your way</span>.</h2>
-      <p class="lede" style="margin:0 auto">From up to 100Gb connectivity to custom routing and hybrid-cloud links: networking designed for control and resilience.</p>
+      <p class="lede" style="margin:0 auto">Up to 100Gb connectivity to custom routing and hybrid-cloud links: networking designed for control and resilience.</p>
     </div>
     <div class="grid g3 stagger">
       <div class="card">
@@ -539,7 +539,7 @@ footer p{font-family:var(--mono);font-size:12px;color:var(--fog3);letter-spacing
         <p>BGP routing, custom route tables, and granular traffic management put you in full control of the path.</p>
       </div>
       <div class="card">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg></div>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="1"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M8 3v6"/><path d="M16 9v6"/><path d="M8 15v6"/></svg></div>
         <h3>Custom DMZ Setups</h3>
         <p>Design isolated zones and NAT topologies that match your security architecture exactly.</p>
       </div>
@@ -682,7 +682,7 @@ footer p{font-family:var(--mono);font-size:12px;color:var(--fog3);letter-spacing
         <p>Integration validation, performance benchmarks, and compatibility checks before you commit.</p>
       </div>
       <div class="card">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="4"/></svg></div>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/><circle cx="12" cy="8" r="6"/></svg></div>
         <h3>Risk-Free Commitment</h3>
         <p>A money-back guarantee backed by performance SLAs. Our service is powerful, and we stand behind it.</p>
       </div>
