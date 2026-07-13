@@ -132,6 +132,10 @@ h1,h2,h3{font-family:var(--display);color:var(--white);font-weight:600;line-heig
 .statcard b{font-family:var(--display);font-size:30px;color:var(--white);font-weight:600;display:block}
 .statcard b u{font-size:16px;text-decoration:none;color:var(--cyan)}
 .statcard>span{font-size:12.5px;color:var(--fog2);margin-top:4px;display:block}
+.logocard{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;align-items:center;justify-content:center;min-height:104px;transition:border-color .25s ease,transform .25s ease}
+.logocard:hover{border-color:var(--line2);transform:translateY(-2px)}
+.logocard img{max-width:82%;max-height:44px;width:auto;height:auto;object-fit:contain;opacity:.92;transition:opacity .35s ease,transform .35s ease}
+.logocard:hover img{opacity:1;transform:scale(1.04)}
 .statbox{background:rgba(63,184,96,.05);border:1px solid var(--line2);border-radius:16px;padding:24px;align-content: flex-end;}
 .statbox .n{font-family:var(--display);font-size:54px;font-weight:700;line-height:1;color:var(--white)}
 .statbox .k{font-family:var(--mono);font-size:13px;letter-spacing:.6px;color:var(--cyan);text-transform:uppercase;margin:8px 0}
@@ -605,19 +609,19 @@ footer p{font-family:var(--mono);font-size:12px;color:var(--fog3);letter-spacing
     </div>
     <div class="band rev reveal" style="margin-top:26px">
       <div>
-        <div class="tag">SAP Continuous Operations</div>
-        <h2>Certified SAP, optimized for HANA.</h2>
-        <p>Certified SAP environments with SAP HANA optimization and zero-downtime transitions, plus continuous user management, performance tuning, and real-time monitoring.</p>
+        <div class="tag">Enterprise Applications</div>
+        <h2>Certified to host <span class="grad">any enterprise ERP.</span></h2>
+        <p>We're a certified SAP hosting provider, and we host any enterprise ERP or business application, Oracle, Microsoft Dynamics, Odoo, and more.</p>
         <ul class="blist">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Specialized tools and teams for seamless SAP migrations</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Specialized tools and teams for seamless ERP migrations</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Real-time monitoring and continuous performance tuning</li>
         </ul>
       </div>
       <div class="grid g2" style="gap:16px">
-        <div class="statcard"><b>HANA<u></u></b><span>Optimized</span></div>
-        <div class="statcard"><b>Zero<u>DT</u></b><span>Zero-downtime transitions</span></div>
-        <div class="statcard"><b>24/7<u></u></b><span>Real-time monitoring</span></div>
-        <div class="statcard"><b>SAP<u></u></b><span>Certified environments</span></div>
+        <div class="logocard"><img src="assets/logos/clean/sap.png" alt="SAP" loading="lazy"></div>
+        <div class="logocard"><img src="assets/logos/clean/oracle.png" alt="Oracle" loading="lazy"></div>
+        <div class="logocard"><img src="assets/logos/clean/dynamics.png" alt="Microsoft Dynamics" loading="lazy"></div>
+        <div class="logocard"><img src="assets/logos/clean/odoo.png" alt="Odoo" loading="lazy"></div>
       </div>
     </div>
   </div>
