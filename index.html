@@ -135,6 +135,7 @@ h1,h2,h3{font-family:var(--display);color:var(--white);font-weight:600;line-heig
 .logocard{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;align-items:center;justify-content:center;min-height:104px;transition:border-color .25s ease,transform .25s ease}
 .logocard:hover{border-color:var(--line2);transform:translateY(-2px)}
 .logocard img{max-width:82%;max-height:44px;width:auto;height:auto;object-fit:contain;opacity:.92;transition:opacity .35s ease,transform .35s ease}
+.logocard img.lg{max-height:60px;max-width:92%}
 .logocard:hover img{opacity:1;transform:scale(1.04)}
 .statbox{background:rgba(63,184,96,.05);border:1px solid var(--line2);border-radius:16px;padding:24px;align-content: flex-end;}
 .statbox .n{font-family:var(--display);font-size:54px;font-weight:700;line-height:1;color:var(--white)}
@@ -618,9 +619,9 @@ footer p{font-family:var(--mono);font-size:12px;color:var(--fog3);letter-spacing
         </ul>
       </div>
       <div class="grid g2" style="gap:16px">
-        <div class="logocard"><img src="assets/logos/clean/sap.png" alt="SAP" loading="lazy"></div>
+        <div class="logocard"><img class="lg" src="assets/logos/clean/sap.png" alt="SAP" loading="lazy"></div>
         <div class="logocard"><img src="assets/logos/clean/oracle.png" alt="Oracle" loading="lazy"></div>
-        <div class="logocard"><img src="assets/logos/clean/dynamics.png" alt="Microsoft Dynamics" loading="lazy"></div>
+        <div class="logocard"><img class="lg" src="assets/logos/clean/dynamics.png" alt="Microsoft Dynamics" loading="lazy"></div>
         <div class="logocard"><img src="assets/logos/clean/odoo.png" alt="Odoo" loading="lazy"></div>
       </div>
     </div>
