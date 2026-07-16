@@ -308,6 +308,9 @@ footer p{font-family:var(--mono);font-size:12px;color:var(--fog3);letter-spacing
 .grid.g3.stagger{grid-auto-rows:1fr}
 .grid.g3.stagger > .card{height:100%;display:flex;flex-direction:column}
 @supports not (grid-auto-rows:1fr){ .grid.g3.stagger > .card{min-height:288px} }
+/* Single column: every card is its own row, so 1fr would stretch them all to the
+   tallest one and leave dead space under the short ones. Let them size naturally. */
+@media(max-width:620px){ .grid.g3.stagger{grid-auto-rows:auto} .grid.g3.stagger > .card{height:auto} }
 
 /* ===== CLICKABLE CARDS ===== */
 .card[data-fm]{cursor:pointer}
@@ -348,7 +351,10 @@ footer p{font-family:var(--mono);font-size:12px;color:var(--fog3);letter-spacing
 .fm-list li .chk{flex:0 0 auto;width:38px;height:38px;border-radius:11px;display:grid;place-items:center;
   background:linear-gradient(150deg,rgba(63,184,96,.2),rgba(46,158,84,.12));border:1px solid var(--line2);color:var(--cyan)}
 .fm-list li .chk svg{width:18px;height:18px}
-.fm-list li>span:last-child{font-family:var(--display);font-size:16px;font-weight:600;color:var(--white);line-height:1.4;padding-top:7px}
+.fm-list li>span:last-child{font-family:var(--display);font-size:16px;font-weight:600;color:var(--white);
+  line-height:1.4;padding-top:7px;
+  /* reserve 2 lines so panel height never shifts between features */
+  min-height:calc(2 * 1.4em + 7px);display:flex;align-items:center}
 .fm-nav{display:flex;align-items:center;justify-content:center;gap:22px;margin-top:32px}
 .fm-nav button{width:52px;height:52px;border-radius:50%;border:1px solid var(--line);
   background:rgba(255,255,255,.04);color:var(--fog);display:grid;place-items:center;cursor:pointer;transition:all .25s}
@@ -368,7 +374,7 @@ body.locked{overflow:hidden}
   .fm-list li{gap:14px}
   .fm-list li .chk{width:32px;height:32px;border-radius:9px}
   .fm-list li .chk svg{width:15px;height:15px}
-  .fm-list li>span:last-child{font-size:15px;padding-top:5px}
+  .fm-list li>span:last-child{font-size:15px;padding-top:5px;min-height:0;display:block}
   .fm-nav{gap:16px;margin-top:26px}
   .fm-nav button{width:42px;height:42px}
 }
