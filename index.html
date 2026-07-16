@@ -302,8 +302,15 @@ footer p{font-family:var(--mono);font-size:12px;color:var(--fog3);letter-spacing
   #cursor-glow,.arcsvg{display:none}
 }
 
+/* ===== UNIFORM CARD HEIGHTS =====
+   Grid rows size independently by default, so a wordier row grew taller than
+   the others. 1fr rows force every row in the grid to a single shared height. */
+.grid.g3.stagger{grid-auto-rows:1fr}
+.grid.g3.stagger > .card{height:100%;display:flex;flex-direction:column}
+@supports not (grid-auto-rows:1fr){ .grid.g3.stagger > .card{min-height:288px} }
+
 /* ===== CLICKABLE CARDS ===== */
-.card[data-fm]{cursor:pointer;min-height:288px;display:flex;flex-direction:column}
+.card[data-fm]{cursor:pointer}
 .card[data-fm] .go{position:absolute;top:20px;right:20px;width:30px;height:30px;border-radius:9px;
   display:grid;place-items:center;color:var(--cyan);z-index:3;
   border:1px solid var(--line2);background:rgba(63,184,96,.08);
@@ -311,13 +318,13 @@ footer p{font-family:var(--mono);font-size:12px;color:var(--fog3);letter-spacing
 .card[data-fm] .go svg{width:15px;height:15px}
 .card[data-fm]:hover .go{opacity:1;transform:translate(2px,-2px);background:rgba(63,184,96,.18);
   border-color:rgba(63,184,96,.55);box-shadow:0 0 14px rgba(63,184,96,.25)}
-.card.hl{min-height:288px}
 
 /* ===== FEATURE MODAL ===== */
-#fm{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;padding:34px 22px}
+#fm{position:fixed;inset:0;z-index:300;display:none;align-items:flex-start;justify-content:center;
+  padding:28px;overflow-y:auto;overscroll-behavior:contain}
 #fm.open{display:flex}
 #fm .fm-back{position:absolute;inset:0;background:rgba(4,9,18,.74);backdrop-filter:blur(9px)}
-#fm .fm-panel{position:relative;width:100%;max-width:1080px;max-height:92vh;overflow:hidden;
+#fm .fm-panel{position:relative;width:100%;max-width:1080px;margin:auto;
   background:linear-gradient(160deg,#0E1D30,#0A1526);border:1px solid var(--line2);border-radius:26px;
   padding:46px 54px 36px;box-shadow:0 40px 110px rgba(0,0,0,.65);animation:fmpop .45s cubic-bezier(.2,.7,.2,1)}
 @keyframes fmpop{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
@@ -351,11 +358,19 @@ footer p{font-family:var(--mono);font-size:12px;color:var(--fog3);letter-spacing
 .fm-dots i{width:8px;height:8px;border-radius:100px;background:var(--fog3);opacity:.5;cursor:pointer;transition:all .3s}
 .fm-dots i.on{width:26px;background:var(--cyan);opacity:1;box-shadow:0 0 12px rgba(63,184,96,.6)}
 body.locked{overflow:hidden}
-@media(max-width:860px){
-  #fm .fm-panel{padding:44px 24px 30px}
-  #fm .fm-body{grid-template-columns:1fr;gap:30px}
-  #fm h2{max-width:100%;font-size:26px;min-height:0;display:block}
-  #fm .fm-panel{max-height:90vh;overflow-y:auto}
+@media(max-width:760px){
+  #fm{padding:18px}
+  #fm .fm-panel{padding:32px 18px 26px;border-radius:20px}
+  #fm .fm-body{grid-template-columns:1fr;gap:26px}
+  #fm h2{max-width:100%;font-size:23px;min-height:0;display:block;margin-bottom:22px}
+  #fm .fm-x{top:14px;right:14px;width:36px;height:36px}
+  .fm-list{gap:16px}
+  .fm-list li{gap:14px}
+  .fm-list li .chk{width:32px;height:32px;border-radius:9px}
+  .fm-list li .chk svg{width:15px;height:15px}
+  .fm-list li>span:last-child{font-size:15px;padding-top:5px}
+  .fm-nav{gap:16px;margin-top:26px}
+  .fm-nav button{width:42px;height:42px}
 }
 </style>
 </head>
