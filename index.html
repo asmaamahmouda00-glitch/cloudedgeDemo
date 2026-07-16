@@ -301,6 +301,62 @@ footer p{font-family:var(--mono);font-size:12px;color:var(--fog3);letter-spacing
   .reveal,.stagger>*,.jr{opacity:1;transform:none}
   #cursor-glow,.arcsvg{display:none}
 }
+
+/* ===== CLICKABLE CARDS ===== */
+.card[data-fm]{cursor:pointer;min-height:288px;display:flex;flex-direction:column}
+.card[data-fm] .go{position:absolute;top:20px;right:20px;width:30px;height:30px;border-radius:9px;
+  display:grid;place-items:center;color:var(--cyan);z-index:3;
+  border:1px solid var(--line2);background:rgba(63,184,96,.08);
+  opacity:.85;transition:opacity .3s,transform .3s,background .3s,border-color .3s,box-shadow .3s}
+.card[data-fm] .go svg{width:15px;height:15px}
+.card[data-fm]:hover .go{opacity:1;transform:translate(2px,-2px);background:rgba(63,184,96,.18);
+  border-color:rgba(63,184,96,.55);box-shadow:0 0 14px rgba(63,184,96,.25)}
+.card.hl{min-height:288px}
+
+/* ===== FEATURE MODAL ===== */
+#fm{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;padding:34px 22px}
+#fm.open{display:flex}
+#fm .fm-back{position:absolute;inset:0;background:rgba(4,9,18,.74);backdrop-filter:blur(9px)}
+#fm .fm-panel{position:relative;width:100%;max-width:1080px;max-height:92vh;overflow:hidden;
+  background:linear-gradient(160deg,#0E1D30,#0A1526);border:1px solid var(--line2);border-radius:26px;
+  padding:46px 54px 36px;box-shadow:0 40px 110px rgba(0,0,0,.65);animation:fmpop .45s cubic-bezier(.2,.7,.2,1)}
+@keyframes fmpop{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
+#fm .fm-x{position:absolute;top:22px;right:22px;width:42px;height:42px;border-radius:50%;
+  border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--fog);
+  display:grid;place-items:center;cursor:pointer;transition:all .25s;z-index:4}
+#fm .fm-x:hover{background:rgba(63,184,96,.12);border-color:var(--line2);color:var(--white);transform:rotate(90deg)}
+#fm .fm-x svg{width:17px;height:17px}
+#fm h2{font-size:clamp(26px,3.2vw,40px);line-height:1.14;margin-bottom:30px;max-width:86%;
+  /* title mirrors the card <h3>; reserve 1 line so every panel is the same height */
+  min-height:1.14em;display:flex;align-items:center;text-wrap:balance}
+#fm .fm-body{display:grid;grid-template-columns:1fr 1fr;gap:46px;align-items:center}
+.fm-shot{position:relative;width:100%;aspect-ratio:16/10;border-radius:14px;overflow:hidden;
+  background:linear-gradient(150deg,rgba(63,184,96,.07),rgba(46,158,84,.04));
+  border:1px dashed var(--line2);display:grid;place-items:center}
+.fm-shot img{width:100%;height:100%;object-fit:cover;border-radius:14px}
+.fm-shot .ph{text-align:center;color:var(--fog3);font-family:var(--mono);font-size:11px;letter-spacing:1.2px;text-transform:uppercase}
+.fm-shot .ph svg{width:30px;height:30px;margin:0 auto 10px;color:var(--cyan);opacity:.5;display:block}
+.fm-list{display:flex;flex-direction:column;gap:20px}
+.fm-list li{display:flex;gap:18px;align-items:flex-start;list-style:none}
+.fm-list li .chk{flex:0 0 auto;width:38px;height:38px;border-radius:11px;display:grid;place-items:center;
+  background:linear-gradient(150deg,rgba(63,184,96,.2),rgba(46,158,84,.12));border:1px solid var(--line2);color:var(--cyan)}
+.fm-list li .chk svg{width:18px;height:18px}
+.fm-list li>span:last-child{font-family:var(--display);font-size:16px;font-weight:600;color:var(--white);line-height:1.4;padding-top:7px}
+.fm-nav{display:flex;align-items:center;justify-content:center;gap:22px;margin-top:32px}
+.fm-nav button{width:52px;height:52px;border-radius:50%;border:1px solid var(--line);
+  background:rgba(255,255,255,.04);color:var(--fog);display:grid;place-items:center;cursor:pointer;transition:all .25s}
+.fm-nav button:hover{background:rgba(63,184,96,.12);border-color:var(--line2);color:var(--white)}
+.fm-nav button svg{width:19px;height:19px}
+.fm-dots{display:flex;gap:9px;align-items:center}
+.fm-dots i{width:8px;height:8px;border-radius:100px;background:var(--fog3);opacity:.5;cursor:pointer;transition:all .3s}
+.fm-dots i.on{width:26px;background:var(--cyan);opacity:1;box-shadow:0 0 12px rgba(63,184,96,.6)}
+body.locked{overflow:hidden}
+@media(max-width:860px){
+  #fm .fm-panel{padding:44px 24px 30px}
+  #fm .fm-body{grid-template-columns:1fr;gap:30px}
+  #fm h2{max-width:100%;font-size:26px;min-height:0;display:block}
+  #fm .fm-panel{max-height:90vh;overflow-y:auto}
+}
 </style>
 </head>
 <body>
@@ -364,27 +420,32 @@ footer p{font-family:var(--mono);font-size:12px;color:var(--fog3);letter-spacing
       <p class="lede" style="margin:0 auto">High-performance servers, all-flash storage, and advanced networking, designed to give you a real competitive advantage in security, scalability, and cost.</p>
     </div>
     <div class="grid g3 stagger">
-      <div class="card">
+      <div class="card" data-fm="hardware">
+        <div class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></div>
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
         <h3>Enterprise-Grade Hardware</h3>
         <p>Built with enterprise needs in mind, using top-tier servers and global data centers for consistent, dependable performance.</p>
       </div>
-      <div class="card">
+      <div class="card" data-fm="flash">
+        <div class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></div>
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg></div>
         <h3>All-Flash Storage</h3>
         <p>NVMe and all-flash storage across the platform delivers low-latency performance for the most demanding workloads.</p>
       </div>
-      <div class="card">
+      <div class="card" data-fm="network">
+        <div class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></div>
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="16" y="16" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/></svg></div>
         <h3>Advanced Networking</h3>
         <p>Software-defined, high-bandwidth networking with the routing and security controls enterprises expect.</p>
       </div>
-      <div class="card">
+      <div class="card" data-fm="cost">
+        <div class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></div>
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg></div>
         <h3>Cost-Effective Scale</h3>
         <p>Grow capacity on demand and pay for what you use, with no oversized upfront hardware investment.</p>
       </div>
-      <div class="card">
+      <div class="card" data-fm="resilience">
+        <div class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></div>
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></div>
         <h3>Built-In Resilience</h3>
         <p>Failover and disaster recovery are part of the core design, so uptime doesn't depend on add-ons.</p>
@@ -432,31 +493,36 @@ footer p{font-family:var(--mono);font-size:12px;color:var(--fog3);letter-spacing
       <p class="lede" style="margin:0 auto">A security infrastructure built on Palo Alto Networks, Zero Trust architecture, and round-the-clock SOC monitoring, with compliance baked in.</p>
     </div>
     <div class="grid g3 stagger">
-      <div class="card">
+      <div class="card" data-fm="paloalto">
+        <div class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></div>
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg></div>
         <span class="tag">Zero Trust</span>
         <h3>Palo Alto Networks</h3>
         <p>Next-generation firewalling and Zero Trust architecture verify every connection, so nothing is trusted by default.</p>
       </div>
-      <div class="card">
+      <div class="card" data-fm="cortex">
+        <div class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></div>
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div>
         <span class="tag">Threat Defense</span>
         <h3>Cortex XDR & WildFire</h3>
         <p>Extended detection and response with WildFire malware analysis stops advanced threats before they spread.</p>
       </div>
-      <div class="card">
+      <div class="card" data-fm="splunk">
+        <div class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></div>
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 14 4-4 3 3 5-6"/></svg></div>
         <span class="tag">Visibility</span>
         <h3>Splunk SIEM</h3>
         <p>Real-time security analytics and correlation give your team full visibility across the environment.</p>
       </div>
-      <div class="card">
+      <div class="card" data-fm="soc">
+        <div class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></div>
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 2"/></svg></div>
         <span class="tag">Always On</span>
         <h3>24/7 SOC Monitoring</h3>
         <p>A dedicated security operations center watches your infrastructure every hour of every day.</p>
       </div>
-      <div class="card">
+      <div class="card" data-fm="compliance">
+        <div class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></div>
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg></div>
         <span class="tag">Compliance</span>
         <h3>GDPR · HIPAA · ISO 27001</h3>
@@ -535,27 +601,32 @@ footer p{font-family:var(--mono);font-size:12px;color:var(--fog3);letter-spacing
       <p class="lede" style="margin:0 auto">Up to 100Gb connectivity to custom routing and hybrid-cloud links: networking designed for control and resilience.</p>
     </div>
     <div class="grid g3 stagger">
-      <div class="card">
+      <div class="card" data-fm="conn100">
+        <div class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></div>
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg></div>
         <h3>Up To 100Gb Connectivity</h3>
         <p>High-bandwidth options with advanced NAT configurations and custom DMZ setups for secure segmentation.</p>
       </div>
-      <div class="card">
+      <div class="card" data-fm="lb7">
+        <div class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></div>
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="4"/></svg></div>
         <h3>Layer 7 Load Balancing</h3>
         <p>Application-aware load balancing plus Direct Connect for hybrid clouds keeps traffic fast and intelligent.</p>
       </div>
-      <div class="card">
+      <div class="card" data-fm="ddos">
+        <div class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></div>
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg></div>
         <h3>Enterprise DDoS Protection</h3>
         <p>Always-on mitigation absorbs volumetric and application-layer attacks before they reach your services.</p>
       </div>
-      <div class="card">
+      <div class="card" data-fm="bgp">
+        <div class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></div>
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></div>
         <h3>BGP & Custom Routing</h3>
         <p>BGP routing, custom route tables, and granular traffic management put you in full control of the path.</p>
       </div>
-      <div class="card">
+      <div class="card" data-fm="dmz">
+        <div class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></div>
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="1"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M8 3v6"/><path d="M16 9v6"/><path d="M8 15v6"/></svg></div>
         <h3>Custom DMZ Setups</h3>
         <p>Design isolated zones and NAT topologies that match your security architecture exactly.</p>
@@ -802,6 +873,27 @@ footer p{font-family:var(--mono);font-size:12px;color:var(--fog3);letter-spacing
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
   </div>
 </section>
+
+<!-- FEATURE MODAL -->
+<div id="fm" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="fm-back"></div>
+  <div class="fm-panel">
+    <button class="fm-x" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+    <div class="eyebrow"><span class="dot"></span><span id="fm-eyebrow"></span></div>
+    <h2 id="fm-title"></h2>
+    <div class="fm-body">
+      <div class="fm-shot" id="fm-shot"></div>
+      <ul class="fm-list" id="fm-list"></ul>
+    </div>
+    <div class="fm-nav">
+      <button id="fm-prev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+      <div class="fm-dots" id="fm-dots"></div>
+      <button id="fm-next" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div>
 
 <footer>
   <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin:0 auto 14px;position:relative;z-index:1">
@@ -1172,6 +1264,209 @@ if(!reduce)document.querySelectorAll('.card').forEach(card=>{
     card.style.transform='perspective(820px) rotateX('+rx+'deg) rotateY('+ry+'deg) translateY(-6px)';});
   card.addEventListener('mouseleave',()=>{card.style.setProperty('--spot',0);card.style.transform='';});
 });
+
+/* ===== FEATURE MODAL =====
+   Modal title is read from each card's <h3>, so the two always match.
+   To add an image later: set img to a path, e.g. img:'./assets/features/hardware.png'
+   All slots render at a fixed 16:10 ratio so every image is the same size. */
+const FEATURES = {
+  hardware: {
+    eyebrow:'Infrastructure',
+    img:'',
+    bullets:[
+      'Latest-generation enterprise CPUs sized for demanding production workloads',
+      'Fully redundant power, cooling, and network paths in every facility',
+      'Global data centers spanning more than 35 availability zones',
+      'Continuous hardware refresh cycles handled entirely by our team'
+    ]
+  },
+  flash: {
+    eyebrow:'Storage Performance',
+    img:'',
+    bullets:[
+      'End-to-end NVMe all-flash arrays with consistently low latency',
+      'Automatic tiering keeps your hottest data on the fastest media',
+      'Triple-replicated volumes protect against drive and node failure',
+      'Scale capacity independently of compute, with no downtime'
+    ]
+  },
+  network: {
+    eyebrow:'Connectivity',
+    img:'',
+    bullets:[
+      'High-bandwidth backbone with low-latency routing between zones',
+      'Define your own VLANs, subnets, and routing rules from the console',
+      'Firewall, NAT, and load balancing included at no extra charge',
+      'Private interconnects and VPN tunnels to your on-premises network'
+    ]
+  },
+  cost: {
+    eyebrow:'Pricing & Scale',
+    img:'',
+    bullets:[
+      'Add or remove vCores, RAM, and storage in minutes, not procurement cycles',
+      'No upfront hardware investment and no oversized capacity sitting idle',
+      'Transparent per-resource pricing with no hidden egress charges',
+      'Reserved capacity options for predictable long-term workloads'
+    ]
+  },
+  resilience: {
+    eyebrow:'Availability',
+    img:'',
+    bullets:[
+      'Automatic host failover keeps workloads running straight through failures',
+      'Disaster recovery replication between availability zones, built in',
+      'Scheduled and on-demand snapshots with rapid point-in-time restore',
+      'Backed by a 99.99% uptime SLA, never an optional add-on'
+    ]
+  }
+  ,
+  paloalto: {
+    eyebrow:'Zero Trust',
+    img:'',
+    bullets:[
+      'Next-generation firewalling inspects traffic at the application layer',
+      'Zero Trust architecture verifies every connection, with nothing trusted by default',
+      'Segmentation policies keep workloads isolated from one another',
+      'Threat prevention signatures applied continuously across the estate'
+    ]
+  },
+  cortex: {
+    eyebrow:'Threat Defense',
+    img:'',
+    bullets:[
+      'Extended detection and response correlates signals across endpoints and network',
+      'WildFire detonates unknown files in a sandbox before they ever reach you',
+      'Behavioral analytics surface threats that signature-based tools miss',
+      'Automated containment stops an incident from spreading laterally'
+    ]
+  },
+  splunk: {
+    eyebrow:'Visibility',
+    img:'',
+    bullets:[
+      'Real-time security analytics across your entire CloudEdge environment',
+      'Event correlation turns raw log volume into actionable signal',
+      'Searchable retention for investigations and audit trails',
+      'Dashboards and alerting tuned to the priorities your team sets'
+    ]
+  },
+  soc: {
+    eyebrow:'Always On',
+    img:'',
+    bullets:[
+      'A dedicated security operations center staffed every hour of every day',
+      'Continuous monitoring and triage of security events as they happen',
+      'Defined escalation paths so incidents reach the right people fast',
+      'Incident response from engineers who already know your environment'
+    ]
+  },
+  compliance: {
+    eyebrow:'Compliance',
+    img:'',
+    bullets:[
+      'Controls mapped to the GDPR, HIPAA, and ISO 27001 requirements your industry demands',
+      'Regular independent security audits keep your posture verifiable',
+      'Continuous oversight rather than a point-in-time checkbox',
+      'Documentation and evidence available to support your own audits'
+    ]
+  }
+  ,
+  conn100: {
+    eyebrow:'Bandwidth',
+    img:'',
+    bullets:[
+      'High-bandwidth connectivity options scaling all the way up to 100Gb',
+      'Advanced NAT configurations shaped around your own topology',
+      'Custom DMZ setups for secure segmentation of public-facing services',
+      'Multiple NICs per VM separate management, storage, and application traffic'
+    ]
+  },
+  lb7: {
+    eyebrow:'Traffic Management',
+    img:'',
+    bullets:[
+      'Application-aware balancing routes on HTTP paths, headers, and cookies',
+      'Health checks pull unhealthy backends out of rotation automatically',
+      'SSL termination at the balancer frees up your application servers',
+      'Direct Connect keeps hybrid-cloud traffic fast and intelligent'
+    ]
+  },
+  ddos: {
+    eyebrow:'Attack Mitigation',
+    img:'',
+    bullets:[
+      'Always-on mitigation, with nothing to switch on once an attack starts',
+      'Volumetric floods absorbed upstream, before they reach your services',
+      'Application-layer detection goes beyond simple traffic thresholds',
+      'Legitimate traffic keeps flowing while an attack is being scrubbed'
+    ]
+  },
+  bgp: {
+    eyebrow:'Routing Control',
+    img:'',
+    bullets:[
+      'BGP routing puts path selection under your control, not a fixed template',
+      'Custom route tables define exactly how traffic moves between subnets',
+      'Granular traffic management across availability zones and hybrid links',
+      'Full visibility of the path your traffic actually takes'
+    ]
+  },
+  dmz: {
+    eyebrow:'Segmentation',
+    img:'',
+    bullets:[
+      'Design isolated zones that match your security architecture exactly',
+      'NAT topologies built around your addressing, not a vendor default',
+      'Separate public-facing services from internal workloads cleanly',
+      'Pairs with Palo Alto segmentation policies for defense in depth'
+    ]
+  }
+};
+(function(){
+  const fm=document.getElementById('fm'); if(!fm)return;
+  const elEy=document.getElementById('fm-eyebrow'),elTi=document.getElementById('fm-title');
+  const elShot=document.getElementById('fm-shot'),elList=document.getElementById('fm-list'),elDots=document.getElementById('fm-dots');
+  const PH='<div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>Image coming soon</div>';
+
+  /* Each section carousels within its own group of cards */
+  const groups={};
+  document.querySelectorAll('.card[data-fm]').forEach(function(c){
+    const sec=c.closest('section');
+    const g=(sec&&sec.id)||'_';
+    (groups[g]=groups[g]||[]).push(c);
+  });
+  let cur=[], idx=0;
+  function esc(t){const d=document.createElement('div');d.textContent=t;return d.innerHTML;}
+  function render(i){
+    idx=(i+cur.length)%cur.length;
+    const card=cur[idx], f=FEATURES[card.dataset.fm]; if(!f)return;
+    /* title and eyebrow are read from the card itself, so they can never drift */
+    const t=card.querySelector('h3').textContent.trim();
+    const tag=card.querySelector('.tag');
+    elEy.textContent=tag?tag.textContent.trim():f.eyebrow;
+    elTi.textContent=t;
+    elShot.innerHTML=f.img?'<img src="'+f.img+'" alt="'+esc(t)+'">':PH;
+    elList.innerHTML=f.bullets.map(function(b){return '<li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span>'+esc(b)+'</span></li>';}).join('');
+    elDots.innerHTML=cur.map(function(_,j){return '<i class="'+(j===idx?'on':'')+'" data-j="'+j+'"></i>';}).join('');
+  }
+  function open(group,i){cur=groups[group];render(i);fm.classList.add('open');fm.setAttribute('aria-hidden','false');document.body.classList.add('locked');}
+  function close(){fm.classList.remove('open');fm.setAttribute('aria-hidden','true');document.body.classList.remove('locked');}
+  Object.keys(groups).forEach(function(g){
+    groups[g].forEach(function(c,i){c.addEventListener('click',function(){open(g,i);});});
+  });
+  fm.querySelector('.fm-x').addEventListener('click',close);
+  fm.querySelector('.fm-back').addEventListener('click',close);
+  document.getElementById('fm-prev').addEventListener('click',function(){render(idx-1);});
+  document.getElementById('fm-next').addEventListener('click',function(){render(idx+1);});
+  elDots.addEventListener('click',function(e){const j=e.target.dataset.j;if(j!==undefined)render(+j);});
+  document.addEventListener('keydown',function(e){
+    if(!fm.classList.contains('open'))return;
+    if(e.key==='Escape')close();
+    if(e.key==='ArrowRight')render(idx+1);
+    if(e.key==='ArrowLeft')render(idx-1);
+  });
+})();
 /* end of script */
 </script>
 </body>
