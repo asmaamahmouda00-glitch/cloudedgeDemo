@@ -342,7 +342,7 @@ footer p{font-family:var(--mono);font-size:12px;color:var(--fog3);letter-spacing
 #fm .fm-body{display:grid;grid-template-columns:1fr 1fr;gap:46px;align-items:center}
 .fm-shot{position:relative;width:100%;aspect-ratio:16/10;border-radius:14px;overflow:hidden;
   background:linear-gradient(150deg,rgba(63,184,96,.07),rgba(46,158,84,.04));display:grid;place-items:center}
-.fm-shot img{width:100%;height:100%;object-fit:cover;border-radius:14px}
+.fm-shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:14px}
 .fm-shot .ph{text-align:center;color:var(--fog3);font-family:var(--mono);font-size:11px;letter-spacing:1.2px;text-transform:uppercase}
 .fm-shot .ph svg{width:30px;height:30px;margin:0 auto 10px;color:var(--cyan);opacity:.5;display:block}
 .fm-list{display:flex;flex-direction:column;gap:20px}
@@ -1292,7 +1292,7 @@ if(!reduce)document.querySelectorAll('.card').forEach(card=>{
 const FEATURES = {
   hardware: {
     eyebrow:'Infrastructure',
-    img:'./assets/cards%20images/image27.png',
+    img:'./assets/cards%20images/image27_wide.png',
     bullets:[
       'Latest-generation enterprise CPUs sized for demanding production workloads',
       'Fully redundant power, cooling, and network paths in every facility',
@@ -1302,7 +1302,7 @@ const FEATURES = {
   },
   flash: {
     eyebrow:'Storage Performance',
-    img:'./assets/cards%20images/image18.png',
+    img:'./assets/cards%20images/image18_wide.png',
     bullets:[
       'End-to-end NVMe all-flash arrays with consistently low latency',
       'Automatic tiering keeps your hottest data on the fastest media',
@@ -1312,7 +1312,7 @@ const FEATURES = {
   },
   network: {
     eyebrow:'Connectivity',
-    img:'./assets/cards%20images/image17.png',
+    img:'./assets/cards%20images/image17_wide.png',
     bullets:[
       'High-bandwidth backbone with low-latency routing between zones',
       'Define your own VLANs, subnets, and routing rules from the console',
@@ -1322,7 +1322,7 @@ const FEATURES = {
   },
   cost: {
     eyebrow:'Pricing & Scale',
-    img:'./assets/cards%20images/image15.png',
+    img:'./assets/cards%20images/image15_wide.png',
     bullets:[
       'Add or remove vCores, RAM, and storage in minutes, not procurement cycles',
       'No upfront hardware investment and no oversized capacity sitting idle',
@@ -1332,7 +1332,7 @@ const FEATURES = {
   },
   resilience: {
     eyebrow:'Availability',
-    img:'./assets/cards%20images/image16.png',
+    img:'./assets/cards%20images/image16_wide.png',
     bullets:[
       'Automatic host failover keeps workloads running straight through failures',
       'Disaster recovery replication between availability zones, built in',
@@ -1343,7 +1343,7 @@ const FEATURES = {
   ,
   paloalto: {
     eyebrow:'Zero Trust',
-    img:'./assets/cards%20images/image20.png',
+    img:'./assets/cards%20images/image20_wide.png',
     bullets:[
       'Next-generation firewalling inspects traffic at the application layer',
       'Zero Trust architecture verifies every connection, with nothing trusted by default',
@@ -1363,7 +1363,7 @@ const FEATURES = {
   },
   splunk: {
     eyebrow:'Visibility',
-    img:'./assets/cards%20images/image33.png',
+    img:'./assets/cards%20images/image33_wide.png',
     bullets:[
       'Real-time security analytics across your entire CloudEdge environment',
       'Event correlation turns raw log volume into actionable signal',
@@ -1394,7 +1394,7 @@ const FEATURES = {
   ,
   conn100: {
     eyebrow:'Bandwidth',
-    img:'./assets/cards%20images/image14.png',
+    img:'./assets/cards%20images/image14_wide.png',
     bullets:[
       'High-bandwidth connectivity options scaling all the way up to 100Gb',
       'Advanced NAT configurations shaped around your own topology',
@@ -1424,7 +1424,7 @@ const FEATURES = {
   },
   bgp: {
     eyebrow:'Routing Control',
-    img:'./assets/cards%20images/image19.png',
+    img:'./assets/cards%20images/image19_wide.png',
     bullets:[
       'BGP routing puts path selection under your control, not a fixed template',
       'Custom route tables define exactly how traffic moves between subnets',
@@ -1491,3 +1491,4 @@ const FEATURES = {
 </script>
 </body>
 </html>
+        
