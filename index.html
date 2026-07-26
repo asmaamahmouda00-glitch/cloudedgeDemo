@@ -377,6 +377,38 @@ body.locked{overflow:hidden}
   .fm-nav{gap:16px;margin-top:26px}
   .fm-nav button{width:42px;height:42px}
 }
+
+/* ===== BROWSER FRAME (console screenshots) ===== */
+.framewrap{position:relative}
+.framewrap::before{content:'';position:absolute;inset:-6% -4% -12%;z-index:-1;
+  background:radial-gradient(60% 60% at 50% 40%,rgba(63,184,96,.16),transparent 70%);filter:blur(22px)}
+.frame{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line2);background:var(--ink2);
+  box-shadow:0 36px 80px rgba(4,10,22,.6);transition:transform .4s cubic-bezier(.2,.7,.2,1),box-shadow .4s,border-color .4s}
+.frame:hover{transform:translateY(-5px);box-shadow:0 48px 100px rgba(4,10,22,.72);border-color:rgba(63,184,96,.5)}
+.frame>img{width:100%;display:block}
+/* clickable / zoom affordance */
+.frame{cursor:zoom-in}
+.frame .zoom{position:absolute;top:14px;right:14px;z-index:3;width:36px;height:36px;border-radius:10px;
+  display:grid;place-items:center;color:var(--white);background:rgba(10,20,34,.72);border:1px solid var(--line2);
+  backdrop-filter:blur(6px);opacity:0;transform:translateY(-4px);transition:opacity .3s,transform .3s,background .3s}
+.frame .zoom svg{width:17px;height:17px}
+.framewrap:hover .frame .zoom{opacity:1;transform:none}
+.frame:hover .zoom{background:rgba(63,184,96,.85);color:#04121A;border-color:transparent}
+.shotcap{margin-top:16px;text-align:center;font-family:var(--mono);font-size:12px;letter-spacing:.4px;color:var(--fog2)}
+.shotcap b{color:var(--white);font-weight:600}
+.shotgrid{margin-top:52px}
+/* ===== LIGHTBOX ===== */
+#lb{position:fixed;inset:0;z-index:400;display:none;align-items:center;justify-content:center;padding:34px}
+#lb.open{display:flex}
+#lb .lb-back{position:absolute;inset:0;background:rgba(4,9,18,.84);backdrop-filter:blur(10px);cursor:zoom-out}
+#lb figure{position:relative;max-width:min(1360px,95vw);max-height:92vh;border-radius:14px;overflow:hidden;
+  border:1px solid var(--line2);box-shadow:0 44px 120px rgba(0,0,0,.72);animation:fmpop .4s cubic-bezier(.2,.7,.2,1)}
+#lb figure img{display:block;width:100%;height:auto;max-height:92vh;object-fit:contain;background:var(--ink2)}
+#lb .lb-x{position:fixed;top:22px;right:24px;width:46px;height:46px;border-radius:50%;z-index:2;
+  border:1px solid var(--line2);background:rgba(10,20,34,.8);color:var(--white);
+  display:grid;place-items:center;cursor:pointer;transition:all .25s;backdrop-filter:blur(6px)}
+#lb .lb-x:hover{background:rgba(63,184,96,.16);color:var(--white);transform:rotate(90deg)}
+#lb .lb-x svg{width:19px;height:19px}
 </style>
 </head>
 <body>
@@ -391,6 +423,7 @@ body.locked{overflow:hidden}
     <a href="https://roaya.co/" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;flex-shrink:0"><img src="./assets/logos/roaya-logo.png" alt="Roaya" style="height:22px;max-width:110px;object-fit:contain;filter:brightness(0) invert(1)"></a>
   </div>
   <div class="links">
+    <a href="#console">See It Live</a>
     <a href="#why">Why Private Cloud</a>
     <a href="#security">Security</a>
     <a href="#infra">Infrastructure</a>
@@ -479,6 +512,23 @@ body.locked{overflow:hidden}
   </div>
 </section>
 
+<!-- SEE IT LIVE / CONSOLE PROOF -->
+<section class="section" id="console" style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow"><span class="dot"></span>See CloudEdge in Action</div>
+      <h2 class="h-sec">Not a concept. <span class="grad">A running platform.</span></h2>
+      <p class="lede" style="margin:0 auto">Everything that follows, compute, storage, networking, and security, is managed from one clean self-service console. Here's the real thing.</p>
+    </div>
+    <div class="framewrap reveal">
+      <div class="frame">
+        <img src="./assets/panel/dashboard.png" alt="CloudEdge console dashboard showing resource counts, smart actions, and live CPU, memory and storage usage">
+      </div>
+      <p class="shotcap"><b>The CloudEdge dashboard</b> — resources, smart actions, and live CPU / memory / storage at a glance.</p>
+    </div>
+  </div>
+</section>
+
 <!-- WHY PRIVATE CLOUD -->
 <section class="section" id="why">
   <div class="wrap">
@@ -554,6 +604,12 @@ body.locked{overflow:hidden}
         <p>Continuous oversight and regular security audits keep your compliance posture verifiable, not just promised.</p>
       </div>
     </div>
+    <div class="shotgrid framewrap reveal">
+      <div class="frame">
+        <img src="./assets/panel/firewall.png" alt="CloudEdge firewall policies with grouped allow and deny rules per reservation" loading="lazy">
+      </div>
+      <p class="shotcap"><b>Zero Trust, in your hands</b> — layered allow/deny firewall rules, grouped per reservation.</p>
+    </div>
   </div>
 </section>
 
@@ -609,6 +665,20 @@ body.locked{overflow:hidden}
         <div class="statcard"><b>GPU<u></u></b><span>Acceleration ready</span></div>
       </div>
     </div>
+    <div class="shotgrid grid g2 stagger">
+      <div class="framewrap">
+        <div class="frame">
+          <img src="./assets/panel/vm-list.png" alt="CloudEdge virtual machines list with search filters and a VM card" loading="lazy">
+        </div>
+        <p class="shotcap"><b>Provision at scale</b> — spin up and manage every VM from one list.</p>
+      </div>
+      <div class="framewrap">
+        <div class="frame">
+          <img src="./assets/panel/vm-detail.png" alt="CloudEdge single VM detail view showing specs, disks, and metrics tabs" loading="lazy">
+        </div>
+        <p class="shotcap"><b>Full control per machine</b> — specs, disks, snapshots and live metrics.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -656,6 +726,12 @@ body.locked{overflow:hidden}
         <h3>Connect everything.</h3>
         <p>Direct Connect links your CloudEdge environment to existing data centers and public clouds for true hybrid operations.</p>
       </div>
+    </div>
+    <div class="shotgrid framewrap reveal">
+      <div class="frame">
+        <img src="./assets/panel/nat.png" alt="CloudEdge NAT rules table with SNAT and DNAT entries" loading="lazy">
+      </div>
+      <p class="shotcap"><b>NAT, your way</b> — SNAT and DNAT rules mapped to your topology.</p>
     </div>
   </div>
 </section>
@@ -714,6 +790,12 @@ body.locked{overflow:hidden}
         <h3>Pay for What You Store</h3>
         <p>No capacity planning: scale from gigabytes to petabytes and pay only for what you actually use.</p>
       </div>
+    </div>
+    <div class="shotgrid framewrap reveal">
+      <div class="frame">
+        <img src="./assets/panel/object-storage.png" alt="WorldPosta Object Storage dashboard showing storage quota, usage, bucket count and total objects" loading="lazy">
+      </div>
+      <p class="shotcap"><b>The Object Storage console</b> — quota, usage, buckets and object count at a glance.</p>
     </div>
   </div>
 </section>
@@ -800,6 +882,12 @@ body.locked{overflow:hidden}
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Performance SLAs & money-back guarantee</li>
         </ul>
       </div>
+    </div>
+    <div class="shotgrid framewrap reveal">
+      <div class="frame">
+        <img src="./assets/panel/reservation.png" alt="CloudEdge reservation quota view showing used versus free cores, flash disk and RAM with an upgrade option" loading="lazy">
+      </div>
+      <p class="shotcap"><b>Pay for exactly what you reserve</b> — used vs. free quota, upgrade in a click.</p>
     </div>
   </div>
 </section>
@@ -946,6 +1034,15 @@ body.locked{overflow:hidden}
       <button id="fm-next" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
     </div>
   </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lb" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="lb-back"></div>
+  <button class="lb-x" aria-label="Close">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+  </button>
+  <figure><img alt=""></figure>
 </div>
 
 <footer>
@@ -1519,6 +1616,25 @@ const FEATURES = {
     if(e.key==='ArrowRight')render(idx+1);
     if(e.key==='ArrowLeft')render(idx-1);
   });
+})();
+/* ===== SCREENSHOT LIGHTBOX ===== */
+(function(){
+  const lb=document.getElementById('lb'); if(!lb)return;
+  const fig=lb.querySelector('img');
+  const ZOOM='<span class="zoom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg></span>';
+  function open(src,alt){fig.src=src;fig.alt=alt||'';lb.classList.add('open');lb.setAttribute('aria-hidden','false');document.body.classList.add('locked');}
+  function close(){lb.classList.remove('open');lb.setAttribute('aria-hidden','true');document.body.classList.remove('locked');}
+  document.querySelectorAll('.frame').forEach(function(f){
+    f.insertAdjacentHTML('beforeend',ZOOM);
+    const img=f.querySelector('img');
+    f.setAttribute('role','button');f.setAttribute('tabindex','0');
+    f.setAttribute('aria-label','Enlarge screenshot');
+    f.addEventListener('click',function(){if(img)open(img.currentSrc||img.src,img.alt);});
+    f.addEventListener('keydown',function(e){if((e.key==='Enter'||e.key===' ')&&img){e.preventDefault();open(img.currentSrc||img.src,img.alt);}});
+  });
+  lb.querySelector('.lb-back').addEventListener('click',close);
+  lb.querySelector('.lb-x').addEventListener('click',close);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&lb.classList.contains('open'))close();});
 })();
 /* end of script */
 </script>
